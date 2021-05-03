@@ -13,4 +13,27 @@ body {
 
 .wrapper {
   width: 400px;
+  border: 2px solid red;
+  background-color: #000;
+  color: #fff;
 }
+
+.screen {
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 20px 5px;
+    font-size: 40px;
+}
+
+.calc-button-row {
+  border: 2px solid blue;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.calc-button {
+    background-color: #d8d9db;
+    color: #000;
+}
+
