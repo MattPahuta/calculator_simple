@@ -13,19 +13,84 @@ function buttonClick(value) {
   } else { // is a number
     handleNumber(value)
   }
+  screen.innerText = buffer;
 }
 
 function handleSymbol(symbol) {
+  console.log('handleSymbol', symbol)
+  // if (symbol === 'C') {
+  //   buffer = '0';
+  //   runningTotal = 0;
+  // } 
+
+  switch (symbol) {
+    case 'C':
+      buffer = '0';
+      runningTotal = 0;
+      break;
+    case '&plus;':
+    case '&minus;':
+    case '&times;':
+    case '&divide;':
+      handleMath(symbol);
+      break;
+  }
+
+}
+
+function handleMath(symbol) {
+  if (buffer === '0') {
+    return; // do nothing
+  }
+
+  const intBuffer = parseInt(buffer); // turn the input string into a numbre
+
+  if (runningTotal === 0) {
+    runningTotal = intBuffer;
+  } else {
+    flushOperation(intBuffer);
+  }
+
+  previousOperator = symbol;
+  buffer = '0';
+}
+
+// × ÷ -
+function flushOperation(intBuffer) {
+  // if (previousOperator === '+') {
+  //   runningTotal += intBuffer;
+  // } else if (previousOperator === '-') {
+  //   runningTotal -= intBuffer;
+  // } else if (previousOperator === '×') {
+  //   runningTotal *= intBuffer;
+  // } else {
+  //   runningTotal /= intBuffer;
+  // }
+
+  switch (previousOperator) {
+    case '+':
+      runningTotal += intBuffer;
+      break;
+    case '-':
+      runningTotal -= intBuffer;
+      break;
+    case '×':
+      runningTotal *= intBuffer;
+      break;
+    case '÷':
+      runningTotal /= intBuffer;
+      break;
+  }
 
 }
 
 function handleNumber(numberString) {
-  if (buffer === "0") {
+  if (buffer === '0') {
     buffer = numberString;
   } else {
     buffer = buffer + numberString;
   }
-  screen.innerText = buffer;
+
   // console.log('buffer:', buffer)
 }
 
