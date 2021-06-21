@@ -18,20 +18,32 @@ function buttonClick(value) {
 
 function handleSymbol(symbol) {
   console.log('handleSymbol', symbol)
-  // if (symbol === 'C') {
-  //   buffer = '0';
-  //   runningTotal = 0;
-  // } 
 
   switch (symbol) {
     case 'C':
       buffer = '0';
       runningTotal = 0;
       break;
-    case '&plus;':
-    case '&minus;':
-    case '&times;':
-    case '&divide;':
+    case '=':
+      if (previousOperator === null) {
+        return; // need 2 numbers to do math
+      }
+      flushOperation(parseInt(buffer));
+      previousOperator = null;
+      buffer = runningTotal;
+      runningTotal = 0;
+      break;
+    case '←':
+      if (buffer.length === 1) {
+        buffer = '0';
+      } else {
+        buffer = buffer.substring(0, buffer.length - 1);
+      }
+      break;
+    case '+':
+    case '−':
+    case '×':
+    case '÷':
       handleMath(symbol);
       break;
   }
@@ -57,15 +69,6 @@ function handleMath(symbol) {
 
 // × ÷ -
 function flushOperation(intBuffer) {
-  // if (previousOperator === '+') {
-  //   runningTotal += intBuffer;
-  // } else if (previousOperator === '-') {
-  //   runningTotal -= intBuffer;
-  // } else if (previousOperator === '×') {
-  //   runningTotal *= intBuffer;
-  // } else {
-  //   runningTotal /= intBuffer;
-  // }
 
   switch (previousOperator) {
     case '+':
@@ -98,7 +101,6 @@ function handleNumber(numberString) {
 function init() {
   document.querySelector('.calc-buttons')
     .addEventListener('click', function(event) {
-
       buttonClick(event.target.innerText);
     })
 }
