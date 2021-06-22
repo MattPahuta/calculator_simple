@@ -74,7 +74,7 @@ function flushOperation(intBuffer) {
     case '+':
       runningTotal += intBuffer;
       break;
-    case '-':
+    case '−':
       runningTotal -= intBuffer;
       break;
     case '×':
